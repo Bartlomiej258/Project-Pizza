@@ -239,7 +239,9 @@
 
       /* TODO: Add validiation */
 
-      if(thisWidget.value !== newValue && !isNaN(newValue) && value <= settings.amountWidget.defaultMax && value >= settings.amountWidget.defaultMin){
+      if(thisWidget.value !== newValue && !isNaN(newValue) 
+      && value <= settings.amountWidget.defaultMax 
+      && value >= settings.amountWidget.defaultMin){
         thisWidget.value = newValue;
       }
       thisWidget.input.value = thisWidget.value;
