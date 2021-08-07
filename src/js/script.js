@@ -172,7 +172,7 @@
             // chech if the option is not default
             if(!option.default == true) {
               //add option price to price variable
-              price += option.price
+              price += option.price;
             }
           } else {
             //check if the option is default
