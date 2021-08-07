@@ -250,7 +250,6 @@
       const thisWidget = this;
 
       thisWidget.input.addEventListener('change', function(){
-        //event.preventDefault();
         thisWidget.setValue(thisWidget.input);
       });
 
