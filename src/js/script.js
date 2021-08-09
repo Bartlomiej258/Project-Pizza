@@ -332,6 +332,9 @@
 
       thisCart.dom.wrapper = element;
     }
+
+
+      
   }
 
 
@@ -360,8 +363,17 @@
 
       thisApp.initData();
       thisApp.initMenu();
+      thisApp.initCart();
+      console.log('this.initCart:', thisApp.cart);
     },
+    initCart: function() {
+      const thisApp = this;
+
+      const cartElem = document.querySelector(select.containerOf.cart);
+      thisApp.cart = new Cart (cartElem);
+    }
   };
 
   app.init();
+
 }
