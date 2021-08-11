@@ -170,8 +170,9 @@
 
       thisProduct.dom.cartButton.addEventListener('click', function(event){
         event.preventDefault();
-        thisProduct.addToCart();
         thisProduct.processOrder();
+        thisProduct.addToCart();
+
       });
 
     }
@@ -260,7 +261,6 @@
       productSummary.amount = thisProduct.amountWidget.dom.value;
       productSummary.priceSingle = thisProduct.priceSingle;
       productSummary.price = thisProduct.priceSingle * thisProduct.amountWidget.dom.value;
-
       productSummary.params = thisProduct.prepareCartProductsParams();
       
 
