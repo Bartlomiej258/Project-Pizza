@@ -256,11 +256,6 @@
 
       // eslint-disable-next-line no-unused-vars
       const productSummary = {};
-      productSummary.id = thisProduct.id;
-      productSummary.name = thisProduct.data.name;
-      productSummary.amount = thisProduct.amountWidget.dom.value;
-      productSummary.priceSingle = thisProduct.priceSingle;
-      productSummary.price = thisProduct.priceSingle * thisProduct.amountWidget.dom.value;
       productSummary.params = thisProduct.prepareCartProductsParams();
       
 
@@ -277,8 +272,7 @@
         const param = thisProduct.data.params[paramId];
         //console.log(paramId, param);
         //create category param in params const
-        // eslint-disable-next-line no-undef
-        params[paramID] = {
+        params[paramId] = {
           label: param.label,
           options: {}
         };
@@ -367,7 +361,6 @@
     }
   }
 
-  // eslint-disable-next-line no-unused-vars
   class Cart {
     constructor(element){
       const thisCart = this;
@@ -398,7 +391,7 @@
 
     }
     add(menuProduct){
-      //const thisCart = this;
+      const thisCart = this;
 
       console.log('adding product:', menuProduct);
     }
