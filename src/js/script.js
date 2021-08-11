@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-redeclare
-/* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
+/* global Handlebars, utils, dataSource */ 
 
 {
   'use strict';
@@ -251,10 +251,9 @@
       
     }
     prepartCartProduct(){
-      // eslint-disable-next-line no-unused-vars
+ 
       const thisProduct = this;
 
-      // eslint-disable-next-line no-unused-vars
       const productSummary = {};
       productSummary.params = thisProduct.prepareCartProductsParams();
       
