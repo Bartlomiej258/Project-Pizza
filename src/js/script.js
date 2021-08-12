@@ -248,10 +248,10 @@
     addToCart(){
       const thisProduct = this;
 
-      app.cart.add(thisProduct);
+      app.cart.add(thisProduct.prepareCartProduct);
       
     }
-    prepartCartProduct(){
+    prepareCartProduct(){
  
       const thisProduct = this;
 
@@ -262,10 +262,8 @@
       productSummary.priceSingle = thisProduct.priceSingle;
       productSummary.price = thisProduct.priceSingle * thisProduct.amountWidget.dom.value;
       productSummary.params = thisProduct.prepareCartProductsParams();
-      
-
+    
       return productSummary;
-
     }
     prepareCartProductsParams(){
       const thisProduct = this;
