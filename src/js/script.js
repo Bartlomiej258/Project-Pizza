@@ -233,7 +233,7 @@
 
       /* muptiply price by amount */
       thisProduct.priceSingle = price;
-      thisProduct.priceSingle *= thisProduct.amountWidget.dom.value;
+      price *= thisProduct.amountWidget.dom.value;
       // update calculated price in the HTML
       thisProduct.dom.priceElem.innerHTML = price;
     }
