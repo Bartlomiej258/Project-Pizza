@@ -508,6 +508,7 @@
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
     }
+    
     remove(){
       const thisCartProduct = this;
 
@@ -520,13 +521,14 @@
 
       thisCartProduct.dom.wrapper.dispatchEvent(event);
     }
+
     initActions(){
       const thisCartProduct = this;
       thisCartProduct.dom.edit.addEventListener('click', function(event){
         event.preventDefault;
       });
       thisCartProduct.dom.remove.addEventListener('click', function (event){
-        event.preventDefault;
+        event.preventDefault();
         thisCartProduct.remove();
       });
     }
