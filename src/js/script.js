@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-redeclare
-/* global Handlebars, utils, dataSource */ 
+/* global Handlebars, utils, */ 
 
 {
   'use strict';
@@ -72,7 +72,12 @@
     },
     cart: {
       defaultDeliveryFee: 20,
-    }
+    },
+    db: {
+      url: '//localhost:3131',
+      products: 'products',
+      orders: 'orders',
+    },
   };
 
   const templates = {
@@ -508,7 +513,7 @@
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
     }
-    
+
     remove(){
       const thisCartProduct = this;
 
@@ -539,14 +544,31 @@
       const thisApp = this;
       //console.log('thisApp.data:', thisApp.data);
       for(let productData in thisApp.data.products){
-        new Product(productData, thisApp.data.products[productData]);
+        new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
+        //new Product(productData, thisApp.data.products[productData]);
       }
     },
 
     initData: function(){
       const thisApp = this;
 
-      thisApp.data = dataSource;
+      thisApp.data = {};
+      const url = settings.db.url + '/' + settings.db.products;
+
+      fetch(url)
+        .then(function(rawResponse){
+          return rawResponse.json();
+        })
+        .then(function(parsedResponse){
+          console.log('parsedResponse:', parsedResponse);
+
+          /* save parsedResponse as thisApp.data.products */
+          thisApp.data.products = parsedResponse;
+
+          /* execute initMenu method */
+          thisApp.initMenu();
+        });
+      console.log('thisApp.data', JSON.stringify(thisApp.data));
     },
 
     init: function(){
