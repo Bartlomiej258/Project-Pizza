@@ -20,9 +20,9 @@ class AmountWidget{
     const thisWidget = this;
 
     thisWidget.dom = {};
-
     thisWidget.dom.element = element;
     thisWidget.dom.input = thisWidget.dom.element.querySelector(select.widgets.amount.input);
+  
     thisWidget.dom.linkDecrease = thisWidget.dom.element.querySelector(select.widgets.amount.linkDecrease);
     thisWidget.dom.linkIncrease = thisWidget.dom.element.querySelector(select.widgets.amount.linkIncrease);
     thisWidget.dom.value = settings.amountWidget.defaultValue;

@@ -16,7 +16,7 @@ class Booking {
 
     thisBooking.dom = {};
     thisBooking.dom.wrapper = element;
-    thisBooking.dom.innerHTML = generatedHTML;
+    thisBooking.dom.wrapper.innerHTML = generatedHTML;
     //console.log('thisBooking.dom.wrapper.innerHTML', thisBooking.dom.wrapper.innerHTML)
     thisBooking.dom.peopleAmount = element.querySelector(select.booking.peopleAmount);
     thisBooking.dom.hoursAmount = element.querySelector(select.booking.hoursAmount);
