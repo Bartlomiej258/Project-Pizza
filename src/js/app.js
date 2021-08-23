@@ -1,6 +1,7 @@
 import {settings, select, classNames} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
+import Booking from './components/Booking.js';
 
 const app = {
   initPages: function() {
@@ -88,19 +89,6 @@ const app = {
       });
   },
 
-  init: function(){
-    const thisApp = this;
-    //console.log('*** App starting ***');
-    //console.log('thisApp:', thisApp);
-    //console.log('classNames:', classNames);
-    //console.log('settings:', settings);
-    //console.log('templates:', templates);
-    thisApp.initPages();
-    thisApp.initData();
-    thisApp.initMenu();
-    thisApp.initCart();
-    //console.log('this.initCart:', thisApp.cart);
-  },
   initCart: function() {
     const thisApp = this;
     const cartElem = document.querySelector(select.containerOf.cart);
@@ -112,6 +100,30 @@ const app = {
       app.cart.add(event.detail.product);
     });
   },
+
+  initBooking: function() {
+    const thisApp = this;
+
+    const bookingWidget = document.querySelector(select.containerOf.booking);
+    thisApp.booking = new Booking(bookingWidget);
+
+  },
+
+  init: function(){
+    const thisApp = this;
+    //console.log('*** App starting ***');
+    //console.log('thisApp:', thisApp);
+    //console.log('classNames:', classNames);
+    //console.log('settings:', settings);
+    //console.log('templates:', templates);
+    thisApp.initPages();
+    thisApp.initData();
+    thisApp.initMenu();
+    thisApp.initCart();
+    thisApp.initBooking();
+    //console.log('this.initCart:', thisApp.cart);
+  },
+
 };
 
 app.init();
