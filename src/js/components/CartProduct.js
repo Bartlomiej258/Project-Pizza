@@ -81,6 +81,7 @@ class CartProduct {
       params: thisCartProduct.params,
     };
     return thisCartProduct.simpleData;
+
   }
 }
 export default CartProduct;
