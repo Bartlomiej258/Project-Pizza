@@ -25,11 +25,11 @@ export const select = {
   },
   widgets: {
     amount: {
-      input: 'input.amount',
+      input: 'input.amount', // CODE CHANGED
       linkDecrease: 'a[href="#less"]',
       linkIncrease: 'a[href="#more"]',
     },
-    dataPicker: {
+    datePicker: {
       wrapper: '.date-picker',
       input: `input[name="date"]`,
     },
@@ -37,7 +37,7 @@ export const select = {
       wrapper: '.hour-picker',
       input: 'input[type="range"]',
       output: '.output',
-    }
+    },
   },
   cart: {
     productList: '.cart__order-summary',
