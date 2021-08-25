@@ -42,11 +42,11 @@ class Product{
   
     thisProduct.dom.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
     thisProduct.dom.form = thisProduct.element.querySelector(select.menuProduct.form);
-    thisProduct.dom.formInputs = thisProduct.dom.form.querySelectorAll(select.all.formInputs);
+    thisProduct.dom.formInputs = thisProduct.element.querySelectorAll(select.all.formInputs);
     thisProduct.dom.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
     thisProduct.dom.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
     thisProduct.dom.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
-    thisProduct.dom.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
+    thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
   }
 
   initAccordion (){
@@ -157,15 +157,15 @@ class Product{
 
     /* muptiply price by amount */
     thisProduct.priceSingle = price;
-    price *= thisProduct.amountWidget.dom.value;
+    price *= thisProduct.amountWidget.value;
     // update calculated price in the HTML
     thisProduct.dom.priceElem.innerHTML = price;
   }
   initAmmountWidget(){
     const thisProduct = this;
 
-    thisProduct.amountWidget = new AmountWidget(thisProduct.dom.amountWidgetElem);
-    thisProduct.dom.amountWidgetElem.addEventListener('updated', function(){
+    thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+    thisProduct.amountWidgetElem.addEventListener('updated', function(){
       thisProduct.processOrder();
     });
   }
@@ -188,9 +188,9 @@ class Product{
     const productSummary = {};
     productSummary.id = thisProduct.id;
     productSummary.name = thisProduct.data.name;
-    productSummary.amount = thisProduct.amountWidget.dom.value;
+    productSummary.amount = thisProduct.amountWidget.value;
     productSummary.priceSingle = thisProduct.priceSingle;
-    productSummary.price = thisProduct.priceSingle * thisProduct.amountWidget.dom.value;
+    productSummary.price = thisProduct.priceSingle * thisProduct.amountWidget.value;
     productSummary.params = thisProduct.prepareCartProductsParams();
   
     return productSummary;
