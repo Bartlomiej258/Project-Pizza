@@ -179,6 +179,8 @@ class Booking {
         table.classList.remove(classNames.booking.tableSelected);
       }
     }
+    // TODO: reset po zmianie godziny, daty
+    // Wysyłka danych na serwer
     
   }
 
