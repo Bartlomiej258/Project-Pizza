@@ -63,9 +63,9 @@ class Booking {
         ]);
       })
       .then(function([bookings, eventsCurrent, eventsRepeat]){
-        console.log(bookings);
-        console.log(eventsCurrent);
-        console.log(eventsRepeat);
+        console.log('bookings',bookings);
+        console.log('eventsCurrent', eventsCurrent);
+        console.log('eventsRepeat', eventsRepeat);
       });
   }
 
