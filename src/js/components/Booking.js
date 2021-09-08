@@ -183,10 +183,50 @@ class Booking {
         table.classList.remove(classNames.booking.tableSelected);
       }
     }
-    // TODO: reset po zmianie godziny, daty
+    // TODO: 
     // Wysyłka danych na serwer
     
   }
+
+  sendBooking(){
+    event.preventDefault();
+    const thisBooking = this;
+
+    const url = settings.db.url + '/' + settings.db.booking;
+    console.log(url);
+    const payload = {
+      date: thisBooking.datePicker.value,
+      hour: thisBooking.hourPicker.value,
+      table: parseInt(thisBooking.selectedTable),
+      duration: parseInt(thisBooking.hoursAmount.value),
+      ppl: parseInt(thisBooking.peopleAmount.value),
+      starters: [],
+      phone: thisBooking.dom.phone.value,
+      adress: thisBooking.dom.adress.value,
+    };
+    for (let starter of thisBooking.dom.starters){
+      if (starter.checked == true){
+        payload.starters.push(starter.value);
+      }
+    }
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
+
+    fetch(url, options)
+      .then(function (response) {
+        return response.json();
+      }).then(function(){
+        thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
+        thisBooking.updateDOM();
+      });
+  }
+
 
   render(element){
     const thisBooking = this;
@@ -227,6 +267,11 @@ class Booking {
 
     thisBooking.dom.wrapper.addEventListener('updated', function(){
       thisBooking.updateDOM();
+    });
+
+    thisBooking.dom.orderConfirmation.addEventListener('click', function(){
+      event.preventDefault();
+      thisBooking.sendBooking();
     });
 
   }
