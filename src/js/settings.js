@@ -40,6 +40,7 @@ export const select = {
       input: 'input[type="range"]',
       output: '.output',
     },
+    carousel: '.carousel',
   },
   cart: {
     productList: '.cart__order-summary',
@@ -73,6 +74,7 @@ export const select = {
   nav: {
     links: '.main-nav a',
   },
+  
 };
 
 export const classNames = {
