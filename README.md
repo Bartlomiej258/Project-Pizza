@@ -1,2 +1,2 @@
-version 2.3
+Project Pizzeria by Adrian Sadowski
  https://project-pizzeria-sadodev.herokuapp.com/
