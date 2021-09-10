@@ -14,7 +14,7 @@ class Home {
     const thisHome = this;
     const generatedHTML = templates.homeWidget();
 
-    console.log (generatedHTML);
+    //console.log (generatedHTML);
 
     thisHome.dom = {};
     thisHome.dom.wrapper= element;

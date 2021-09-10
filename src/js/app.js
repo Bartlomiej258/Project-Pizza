@@ -10,6 +10,7 @@ const app = {
 
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
+    //thisApp.navLinksStarter = document.querySelectorAll(select.nav.linksStart);
 
     const idFromHash = window.location.hash.replace('#/', '');
 
@@ -41,7 +42,20 @@ const app = {
 
       });
     }
+    
+    // for (let linkStart of thisApp.navLinksStarter) {
+    //   linkStart.addEventListener('click', function(event){
+    //     const clickedElement = this;
+    //     event.preventDefault();
 
+    //     const id = clickedElement.getAttribute('href').replace('#', '');
+
+    //     thisApp.activatePage(id);
+
+    //     window.location.hash = '#/' + id;
+
+    //   });
+    // }
   },
 
   activatePage: function(pageId) {
@@ -59,6 +73,15 @@ const app = {
         link.getAttribute('href') ==  '#' + pageId
       );
     }
+
+
+    // /* add class "active" to matching links, remove from non-matching */
+    // for(let linkStart of thisApp.navLinksStarter){
+    //   linkStart.classList.toggle(
+    //     classNames.nav.active, 
+    //     linkStart.getAttribute('href') ==  '#' + pageId
+    //   );
+    // }
   },
 
   initMenu: function(){
