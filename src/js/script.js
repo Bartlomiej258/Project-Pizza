@@ -53,7 +53,7 @@
     },
     // CODE ADDED END
   };
-  
+
   const classNames = {
     menuProduct: {
       wrapperActive: 'active',
@@ -65,7 +65,7 @@
     },
     // CODE ADDED END
   };
-  
+
   const settings = {
     amountWidget: {
       defaultValue: 1,
@@ -78,7 +78,7 @@
     },
     // CODE ADDED END
   };
-  
+
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
     // CODE ADDED START
@@ -100,8 +100,7 @@
       thisProduct.initAmountWidget();
       thisProduct.processOrder();
 
-
-      console.log(thisProduct);
+      
     }
 
     renderInMenu() {
@@ -173,6 +172,7 @@
       thisProduct.cartButton.addEventListener('click', function (event) {
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
 
     }
@@ -182,10 +182,10 @@
 
       // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
       const formData = utils.serializeFormToObject(thisProduct.form);
-      console.log('formData', formData);
 
       // set price to default price
-      let price = thisProduct.data.price;
+      // let price = thisProduct.data.price;
+      thisProduct.priceSingle = thisProduct.data.price;
 
       // for every category (param)...
       for (let paramId in thisProduct.data.params) {
@@ -204,10 +204,10 @@
 
           if (optionSelected) {
             if (!optionSelected.default == true) {
-              price += option.price;
+              thisProduct.priceSingle += option.price;
             } else {
               if (option.default == true) {
-                price -= option.price;
+                thisProduct.priceSingle -= option.price;
               }
             }
             const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
@@ -222,8 +222,11 @@
           }
         }
       }
+
+
       /* multiply price by amount */
-      price *= thisProduct.amountWidget.value;
+      // price *= thisProduct.amountWidget.value;
+      const price = thisProduct.priceSingle * thisProduct.amountWidget.value;
 
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
@@ -237,6 +240,62 @@
         thisProduct.processOrder();
       });
     }
+
+    addToCart() {
+      const thisProduct = this;
+
+      // app.cart.add(thisProduct);
+      thisProduct.prepareCartProduct();
+
+    }
+
+    prepareCartProduct() {
+      const thisProduct = this;
+
+      const productSummary = {};
+
+      productSummary.id = thisProduct.id;
+      productSummary.name = thisProduct.name;
+      productSummary.amount = thisProduct.amount;
+      productSummary.priceSingle = thisProduct.priceSingle;
+      productSummary.price = productSummary.amount * productSummary.priceSingle;
+      productSummary.params = thisProduct.prepareCartProductParams();
+
+      return productSummary;
+    }
+
+    prepareCartProductParams() {
+      const thisProduct = this;
+
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      const params = {};
+
+      // for very category (param)
+      for (let paramId in thisProduct.data.params) {
+        const param = thisProduct.data.params[paramId];
+
+        // create category param in params const eg. params = { ingredients: { name: 'Ingredients', options: {}}}
+        params[paramId] = {
+          label: param.label,
+          options: {}
+        };
+
+        // for every option in this category
+        for (let optionId in param.options) {
+
+          const option = param.options[optionId];
+
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+
+          if (optionSelected) {
+            // option is selected!
+            params[paramId].options[optionId] = option.label;
+          }
+        }
+      }
+      console.log(params);
+      return params;
+    }
   }
 
   class AmountWidget {
@@ -246,8 +305,6 @@
       thisWidget.setValue(settings.amountWidget.defaultValue);
       thisWidget.initActions();
 
-      console.log('AmountWidget', thisWidget);
-      console.log('constructor arguments:', element);
     }
 
     getElements(element) {
@@ -307,7 +364,6 @@
       thisCart.getElements(element);
       thisCart.initActions();
 
-      console.log('new Cart', thisCart);
     }
 
     getElements(element) {
@@ -318,15 +374,28 @@
       thisCart.dom.wrapper = element;
 
       thisCart.dom.toggleTrigger = element.querySelector(select.cart.toggleTrigger);
-      
+      thisCart.dom.productList = element.querySelector(select.cart.productList);
+
     }
 
     initActions() {
       const thisCart = this;
 
-      thisCart.dom.toggleTrigger.addEventListener('click', function() {
+      thisCart.dom.toggleTrigger.addEventListener('click', function () {
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
+    }
+
+    add(menuProduct) {
+      console.log('Cart.add: ', menuProduct);
+      const thisCart = this;
+
+      const generateHTML = templates.cartProduct(menuProduct);
+      const generatedDOM = utils.createDOMFromHTML(generateHTML);
+      thisCart.dom.productList.appendChild(generatedDOM);
+
+      console.log('adding product', menuProduct);
+      
     }
   }
 
@@ -340,7 +409,7 @@
       }
     },
 
-    initCart: function() {
+    initCart: function () {
       const thisApp = this;
       const cartElem = document.querySelector(select.containerOf.cart);
       thisApp.cart = new Cart(cartElem);
