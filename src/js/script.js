@@ -465,7 +465,6 @@
       thisCartProduct.getElements(element);
       thisCartProduct.initAmmountWidget();
       thisCartProduct.initActions();
-
     }
 
     getElements(element) {
